@@ -1,62 +1,65 @@
-import React, { useEffect, useRef, useState } from "react";
+import useRenderCount from "@/hooks/useRenderCount";
+import React, { useEffect, useRef, useState, useCallback, memo } from "react";
 
-function useRenderCount(name) {
-  const count = useRef(0);
-  useEffect(() => {
-    count.current += 1;
-    console.log(`${name} render count:`, count.current);
-  });
-}
-
-const ProgressStepCircle = ({ item, isStep }) => (
-  <div className="flex flex-col items-center relative z-10">
-    <div
-      className={`w-10 h-10 flex items-center justify-center rounded-full transition-all duration-300 ${
-        isStep
-          ? "bg-primary text-background"
-          : "bg-background border border-inactive text-inactive"
-      }`}
-    >
-      {item.step}
+// ✅ Memo化圆圈组件，避免不必要 re-render
+const ProgressStepCircle = memo(({ item, isStep }) => {
+  // useRenderCount("ProgressStepCircle");
+  return (
+    <div className="flex flex-col items-center relative z-10">
+      <div
+        className={`w-10 h-10 flex items-center justify-center rounded-full transition-all duration-300 ${
+          isStep
+            ? "bg-primary text-background"
+            : "bg-background border border-inactive text-inactive"
+        }`}
+      >
+        {item.step}
+      </div>
+      <span
+        className={`mt-2 text-sm ${
+          isStep ? "text-primary font-semibold" : "text-inactive"
+        }`}
+      >
+        {item.name}
+      </span>
     </div>
-    <span
-      className={`mt-2 text-sm ${
-        isStep ? "text-primary font-semibold" : "text-inactive"
-      }`}
-    >
-      {item.name}
-    </span>
-  </div>
-);
+  );
+});
 
 export default function ProgressBar({ stepList, step }) {
   const totalSteps = stepList.length;
   const containerRef = useRef(null);
+  const firstCircleRef = useRef(null);
   const [size, setSize] = useState({ width: 0, circle: 0 });
 
-  useRenderCount("ProgressBar");
+  // useRenderCount("ProgressBar");
 
-  // 🔹 自动侦测容器宽度变化
-  useEffect(() => {
-    if (!containerRef.current) return;
+  // ✅ 计算尺寸（带防抖）
+  const measure = useCallback(() => {
+    if (!containerRef.current || !firstCircleRef.current) return;
 
-    const measure = () => {
-      const containerWidth = containerRef.current.offsetWidth;
-      const circle = containerRef.current.querySelector(".w-10");
-      const circleDiameter = circle ? circle.offsetWidth : 40;
+    const containerWidth = containerRef.current.offsetWidth;
+    const circleDiameter = firstCircleRef.current.offsetWidth;
 
-      setSize({ width: containerWidth, circle: circleDiameter });
-    };
-
-    // 初次测量
-    measure();
-
-    // ResizeObserver 侦测变化
-    const observer = new ResizeObserver(measure);
-    observer.observe(containerRef.current);
-
-    return () => observer.disconnect();
+    // 只有当尺寸真的变时才更新
+    setSize((prev) => {
+      if (prev.width !== containerWidth || prev.circle !== circleDiameter) {
+        return { width: containerWidth, circle: circleDiameter };
+      }
+      return prev;
+    });
   }, []);
+
+  useEffect(() => {
+    measure();
+    const observer = new ResizeObserver(() => {
+      // 使用 requestAnimationFrame 防止多次 setState
+      requestAnimationFrame(measure);
+    });
+
+    observer.observe(containerRef.current);
+    return () => observer.disconnect();
+  }, [measure]);
 
   const circleRadius = size.circle / 2;
   const trackWidth = size.width - size.circle;
@@ -83,12 +86,17 @@ export default function ProgressBar({ stepList, step }) {
         }}
       ></div>
 
-      {/* 圆圈 + label */}
+      {/* 圆圈 + Label */}
       <div className="flex justify-between items-center relative z-10">
-        {stepList.map((item) => {
+        {stepList.map((item, i) => {
           const isStep = item.step <= step;
           return (
-            <ProgressStepCircle key={item.step} item={item} isStep={isStep} />
+            <div
+              key={item.step}
+              ref={i === 0 ? firstCircleRef : null} // ✅ 拿第一个 circle 当尺寸基准
+            >
+              <ProgressStepCircle item={item} isStep={isStep} />
+            </div>
           );
         })}
       </div>
