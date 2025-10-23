@@ -1,6 +1,4 @@
-import Layout from "@/components/Layout";
-import PackageList from "@/components/PackageList";
-import { TourPkgListProvider } from "@/context/TourPkgListContext";
+import React from "react";
 
 // hooks
 import { useAutoRefresh } from "@/hooks/useAutoRefresh";
@@ -8,22 +6,14 @@ import { useAutoRefresh } from "@/hooks/useAutoRefresh";
 // i18n
 import { i18n } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import Layout from "@/components/Layout";
 
-// animation
-import { motion } from "motion/react";
-
-export default function Home() {
-  // Auto refresh page every 5 seconds in development mode
+export default function Wanderlust() {
   useAutoRefresh(5000);
-
   return (
-    <>
-      <Layout>
-        <TourPkgListProvider>
-          <PackageList />
-        </TourPkgListProvider>
-      </Layout>
-    </>
+    <Layout>
+      <div>Wanderlust Home Page</div>
+    </Layout>
   );
 }
 

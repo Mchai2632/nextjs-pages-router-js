@@ -4,10 +4,13 @@ import { createContext, useContext, useEffect, useState } from "react";
 const TourPkgListContext = createContext();
 
 export const TourPkgListProvider = ({ children }) => {
-  const { tourPkgList, typeCdList, setTypeCd } = useTourPkgList();
+  const { tourPkgList, typeCdList, typeCd, setTypeCd, loading } =
+    useTourPkgList();
 
   return (
-    <TourPkgListContext.Provider value={{ tourPkgList, typeCdList, setTypeCd }}>
+    <TourPkgListContext.Provider
+      value={{ tourPkgList, typeCd, typeCdList, setTypeCd, loading }}
+    >
       {children}
     </TourPkgListContext.Provider>
   );

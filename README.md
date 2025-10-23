@@ -49,3 +49,7 @@
 | Ground Only 地接團  | 不含機票，當地行程 | GA_SGL, GA_TWN, GA_CWB |
 | Additional 額外費用 | 小費、簽證、保險等 | TIPPING, VISA, AC      |
 | Discount 折扣       | 扣減費用           | DISC                   |
+
+
+
+

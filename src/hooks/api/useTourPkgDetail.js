@@ -25,7 +25,6 @@ export default function useTourPkgDetail(idTourPkg) {
 
       const data = await response.json();
       const tourPkgDetail = data.tourPkg;
-      console.log("tourPkgDetail:", tourPkgDetail);
 
       setTourPkgDetail(tourPkgDetail);
     } catch (err) {

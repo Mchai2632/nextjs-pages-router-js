@@ -1,11 +1,12 @@
 import Forms from "@/components/TourBooking/BookingForm/Forms";
 import BookingSummary from "@/components/TourBooking/BookingSummary";
+import DetailsCard from "@/components/TourBooking/DetailsCard";
 import { BookingProvider } from "@/context/BookingContext";
 import { FormProvider } from "@/context/FormContext";
 import useTourDepDetail from "@/hooks/api/useTourDepDetail";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import React, { useEffect, useMemo } from "react";
+import React, { useMemo } from "react";
 
 export default function BookingTour() {
   const router = useRouter();
@@ -30,6 +31,11 @@ export default function BookingTour() {
   if (!isReady || loading) return <p>Loading...</p>;
   if (error) return <p>Error loading data</p>;
   if (!tourDepDetail) return <p>No data found</p>;
+
+  if (tourDepDetail.tourDepItemList.length < 1) {
+    alert(" tourDepItemlist is empty");
+    router.back();
+  }
 
   const formInitialData = {
     step1: {
@@ -116,25 +122,3 @@ export default function BookingTour() {
     </FormProvider>
   );
 }
-
-const DetailsCard = ({ idTourPkg }) => {
-  return (
-    <div className="flex p-4 bg-white rounded-lg shadow-lg">
-      {/* img */}
-      <div className="w-40 h-40 bg-gray-300 mr-4"></div>
-      <div>
-        <h1>Title</h1>
-        <span>time</span>
-        <div>Selected Date:</div>
-        <div>Air lines:</div>
-        <Link href={`/wanderlust/${idTourPkg}`} className="text-red-500">
-          Change Date
-        </Link>
-      </div>
-
-      <div>
-        <span className="text-gray-400">Category</span>
-      </div>
-    </div>
-  );
-};
