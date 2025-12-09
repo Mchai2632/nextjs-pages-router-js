@@ -1,6 +1,7 @@
 // components/SearchBar.jsx
 import { useState } from "react";
 import { motion } from "motion/react";
+import Button from "./Button/Button";
 
 export default function SearchBar({ placeholder = "Search... ", onSearch }) {
   const [query, setQuery] = useState("");
@@ -15,28 +16,11 @@ export default function SearchBar({ placeholder = "Search... ", onSearch }) {
   };
 
   return (
-    <form
-      onSubmit={handleSubmit}
-      className="flex items-center border rounded-md overflow-hidden"
-    >
-      <input
-        type="text"
-        name="search-bar"
-        value={query}
-        onChange={handleInputChange}
-        placeholder={placeholder}
-        className="flex-1 px-4 py-2 outline-none"
-      />
-      <motion.button
-        initial={{ scale: 0 }}
-        animate={{ scale: 1 }}
-        whileTap={{ scale: 0.9 }}
-        whileHover={{ scale: 1.1 }}
-        type="submit"
-        className="bg-primary text-white hover:bg-primary-dark px-4 py-2"
-      >
+    <form onSubmit={handleSubmit} className="flex items-center border rounded-md overflow-hidden">
+      <input type="text" name="search-bar" value={query} onChange={handleInputChange} placeholder={placeholder} className="flex-1 px-4 py-2 outline-none" />
+      <Button type="submit" variant="primary" size="md" className="rounded-l-none rounded-r-none">
         Search
-      </motion.button>
+      </Button>
     </form>
   );
 }

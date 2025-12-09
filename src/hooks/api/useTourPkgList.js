@@ -1,10 +1,8 @@
 import { useEffect, useState } from "react";
 
-const typeCdList = ["TOUR", "UMRAH"];
-
 export default function useTourPkgList() {
   const [tourPkgList, setTourPkgList] = useState([]);
-  const [typeCd, setTypeCd] = useState(typeCdList[1]);
+  const [typeCd, setTypeCd] = useState("OUTBOUND");
   const [loading, setLoading] = useState(false);
 
   //  get all the tour packages list
@@ -13,7 +11,16 @@ export default function useTourPkgList() {
       setLoading(true);
 
       const params = new URLSearchParams(); // create URLSearchParams object
-      if (typeCd) params.append("typeCd", typeCd);
+
+      let type;
+
+      if (typeCd == "OUTBOUND") {
+        type = "tour";
+      } else {
+        type = typeCd;
+      }
+
+      if (typeCd) params.append("typeCd", type);
       const url = `/api/tourpkglist?${params.toString()}`;
 
       const response = await fetch(url, { method: "GET" });
@@ -21,7 +28,7 @@ export default function useTourPkgList() {
 
       setLoading(false);
 
-      console.log(data.tourPkgList);
+      // console.log(data.tourPkgList);
 
       setTourPkgList(data.tourPkgList);
     } catch (error) {
@@ -32,7 +39,8 @@ export default function useTourPkgList() {
 
   useEffect(() => {
     getTourList();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [typeCd]);
 
-  return { tourPkgList, typeCdList, typeCd, setTypeCd, loading };
+  return { tourPkgList, typeCd, setTypeCd, loading };
 }

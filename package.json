@@ -9,9 +9,12 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "@splinetool/react-spline": "^4.1.0",
+    "@splinetool/runtime": "^1.12.6",
     "clsx": "^2.1.1",
-    "crypto-js": "^4.2.0",
+    "crypto": "^1.0.1",
     "i18next": "^25.6.0",
+    "lodash": "^4.17.21",
     "lucide-react": "^0.546.0",
     "motion": "^12.23.24",
     "multiparty": "^4.2.3",
@@ -19,7 +22,9 @@
     "next-i18next": "^15.4.2",
     "react": "19.1.0",
     "react-dom": "19.1.0",
-    "react-hook-form": "^7.65.0",
+    "react-hook-form": "^7.68.0",
+    "react-select": "^5.10.2",
+    "sass": "^1.93.3",
     "swr": "^2.3.6",
     "tailwind-merge": "^3.3.1",
     "use-immer": "^0.11.0"

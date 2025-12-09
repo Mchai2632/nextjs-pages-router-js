@@ -1,15 +1,11 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 /**
  * Get these params from tourPkgDetails.tourDepList
  * @param {string|number} idBase
  * @param {string|number} idCompany
  */
-export default function useTourDepDetail({
-  idBase,
-  idCompany,
-  enabled = true,
-}) {
+export default function useTourDepDetail({ idBase, idCompany, enabled = true }) {
   const [tourDepDetail, setTourDepDetail] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -28,24 +24,27 @@ export default function useTourDepDetail({
       let url = `/api/tourdepdetail?${params.toString()}`;
 
       const response = await fetch(url);
-      if (!response.ok)
-        throw new Error(`HTTP error! status: ${response.status}`);
+      if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
 
       const data = await response.json();
-      const tourDepList = data.tourDep;
+      if (data.error) {
+        setError(data.error);
+        return;
+      }
 
-      setTourDepDetail(tourDepList);
+      setTourDepDetail(data.tourDep);
     } catch (err) {
-      setError(err);
+      // 將所有錯誤都轉成字串並存到 state
+      setError(err.message || "Something went wrong");
       console.error("Failed to fetch tour package detail:", err);
     } finally {
       setLoading(false);
     }
   };
-
   // 自動在 tourPkgId 改變時抓取
   useEffect(() => {
     getTourDepDetail();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [idBase, idCompany, enabled]);
 
   return { tourDepDetail, loading, error, refetch: getTourDepDetail };

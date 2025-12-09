@@ -8,6 +8,8 @@ export default async function handler(req, res) {
     });
     const result = await response.json();
 
+    // console.log(result);
+
     return res.status(200).json(result);
   } catch (err) {
     console.error(err);

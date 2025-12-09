@@ -1,0 +1,39 @@
+.navBarIsFixed {
+  padding-top: 102px;
+}
+.emoji {
+  font-size: 8em;
+  filter: grayscale(100%);
+  transition: filter 450ms ease;
+}
+
+.emoji:is(:hover, :focus) {
+  filter: grayscale(0%) drop-shadow(0 8px 8px rgba(0, 0, 0, 0.5));
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.searchbar-container {
+  width: 100%;
+  background-color: red;
+  display: flex;
+  height: 70px;
+  align-items: center;
+}
+
+.home-background {
+  background: linear-gradient(
+    177deg,
+    transparent 20%,
+    rgba(255, 166, 0, 0.5),
+    rgba(255, 68, 0, 0.5),
+    rgba(255, 0, 0, 0.51),
+    rgba(161, 0, 161, 0.5),
+    transparent 80%
+  );
+}

@@ -5,7 +5,7 @@ export function useAutoRefresh(interval = 5000) {
   const router = useRouter();
 
   useEffect(() => {
-    if (process.env.NODE_ENV !== "development") return;
+    if (process.env.NEXT_PUBLIC_NODE_ENV !== "development") return;
 
     const timer = setInterval(() => {
       router.replace(router.asPath, undefined, { scroll: false });

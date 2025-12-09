@@ -1,31 +1,58 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-  --primary-color: rgb(226, 12, 12);
-  --primary-color-dark: color-mix(in srgb, var(--primary-color) 80%, black 10%);
-  --text-color: rgb(255, 255, 255);
-  --inactive-color: rgba(186, 186, 186);
+  --font-size: 16px;
+  --primary: oklch(0.65 0.15 264);
+  --bg-dark: oklch(0.92 0 0);
+  --bg: oklch(0.96 0 0);
+  --bg-light: oklch(1 0 0);
+  /* text colors */
+  --text: oklch(0.15 0 0);
+  --text-muted: oklch(0.4 0 0);
+
+  --shadow-s: inset 0 1px 2px #ffffff30 /* top highlights */, 0 1px 2px #00000030 /* dark highlights */, 0 2px 4px #00000015 /* soft highlights */;
+  --shadow-m: inset 0 1px 2px #ffffff50 /* top highlights */, 0 2px 4px #00000030 /* dark highlights */, 0 4px 8px #00000015 /* soft highlights */;
+  --shadow-l: inset 0 1px 2px #ffffff70 /* top highlights */, 0 4px 6px #00000030 /* dark highlights */, 0 6px 10px #00000015 /* soft highlights */;
+
+  --hero-h1-highlight: #7b7b7b;
+}
+
+body.dark {
+  /* bg-colors */
+  --primary: oklch(0.9 0.17 100);
+  --bg-dark: oklch(0.1 0 0);
+  --bg: oklch(0.2 0 0);
+  --bg-light: oklch(0.3 0 0);
+  /* text colors */
+  --text: oklch(0.96 0 0);
+  --text-muted: oklch(0.76 0 0);
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
+  --color-bg-light: var(--bg-light);
+  --color-bg: var(--bg);
+  --color-bg-dark: var(--bg-dark);
+  --color-primary: var(--primary);
+  --color-text: var(--text);
+  --color-text-muted: var(--text-muted);
+  --shadow-s: var(--shadow-s);
+  --shadow-m: var(--shadow-m);
+  --shadow-l: var(--shadow-l);
+
+  --shadow-color: rgba(0, 0, 0, 0.1);
+
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
-  --color-primary: var(--primary-color);
-  --color-primary-dark: var(--primary-color-dark);
-  --color-text: var(--text-color);
-  --color-inactive: var(--inactive-color);
+
+  --color-hero-h1-highlight: var(--hero-h1-highlight);
 }
 
-/* @media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-} */
+html {
+  box-sizing: border-box;
+  font-size: 16px;
+}
 
 body {
   background: var(--background);
@@ -37,12 +64,41 @@ label {
   user-select: none;
 }
 
-h1,
-h2,
+h1 {
+  font-size: var(--fs-h1);
+  font-weight: 700;
+}
+h2 {
+  font-size: var(--fs-h2);
+  font-weight: 600;
+}
 h3 {
-  font-weight: bold;
+  font-size: var(--fs-h3);
+  font-weight: 600;
+}
+h4 {
+  font-size: var(--fs-h4);
+  font-weight: 500;
+}
+h5 {
+  font-size: var(--fs-h5);
+  font-weight: 500;
+}
+h6 {
+  font-size: var(--fs-h6);
+  font-weight: 500;
 }
 
-h1 {
-  font-size: 1.5rem;
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.scrollbar-hidden {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
 }

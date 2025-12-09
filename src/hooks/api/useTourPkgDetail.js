@@ -20,8 +20,7 @@ export default function useTourPkgDetail(idTourPkg) {
       const url = `/api/tourpkgdetail?${params.toString()}`;
 
       const response = await fetch(url);
-      if (!response.ok)
-        throw new Error(`HTTP error! status: ${response.status}`);
+      if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
 
       const data = await response.json();
       const tourPkgDetail = data.tourPkg;
@@ -38,6 +37,7 @@ export default function useTourPkgDetail(idTourPkg) {
   // 自動在 tourPkgId 改變時抓取
   useEffect(() => {
     getTourPkgDetail();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [idTourPkg]);
 
   return { tourPkgDetail, loading, error, refetch: getTourPkgDetail };

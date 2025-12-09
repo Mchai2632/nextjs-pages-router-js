@@ -5,23 +5,15 @@ import React, { useEffect, useRef, useState, useCallback, memo } from "react";
 const ProgressStepCircle = memo(({ item, isStep }) => {
   // useRenderCount("ProgressStepCircle");
   return (
-    <div className="flex flex-col items-center relative z-10">
+    <div className="flex flex-col items-center relative ">
       <div
         className={`w-10 h-10 flex items-center justify-center rounded-full transition-all duration-300 ${
-          isStep
-            ? "bg-primary text-background"
-            : "bg-background border border-inactive text-inactive"
+          isStep ? "bg-primary text-background" : "bg-background border border-inactive text-inactive"
         }`}
       >
-        {item.step}
+        0{item.step}
       </div>
-      <span
-        className={`mt-2 text-sm ${
-          isStep ? "text-primary font-semibold" : "text-inactive"
-        }`}
-      >
-        {item.name}
-      </span>
+      <span className={`mt-2 text-sm ${isStep ? "text-primary font-semibold" : "text-inactive"}`}>{item.name}</span>
     </div>
   );
 });
@@ -63,8 +55,7 @@ export default function ProgressBar({ stepList, step }) {
 
   const circleRadius = size.circle / 2;
   const trackWidth = size.width - size.circle;
-  const progressPx =
-    totalSteps > 1 ? ((step - 1) / (totalSteps - 1)) * trackWidth : 0;
+  const progressPx = totalSteps > 1 ? ((step - 1) / (totalSteps - 1)) * trackWidth : 0;
 
   return (
     <div ref={containerRef} className="relative w-full">
