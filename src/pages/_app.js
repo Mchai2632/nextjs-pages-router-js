@@ -7,6 +7,7 @@ import "@/styles/globals.css";
 import "@/styles/layout.css";
 import "@/styles/variables.scss";
 import "@/styles/booking-forms.css";
+import "@/styles/animations.css";
 import { LoadingProvider } from "@/context/LoadingContext";
 import LoadingOverlay from "@/components/ui/LoadingOverlay";
 import BaseMeta from "@/components/SEO/BaseMeta";

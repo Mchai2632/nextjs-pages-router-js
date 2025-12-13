@@ -1,8 +1,8 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { Input, InputGroup } from "@/components/ui/form";
 import Button from "@/components/ui/Button/Button";
-import RootWrapper from "@/layout/page/root";
+import { useRouter, useSearchParams } from "next/navigation";
 
 const schemaForm = {
   name: {
@@ -25,6 +25,18 @@ const schemaForm = {
 };
 
 export default function LoginPage() {
+  const searchParams = useSearchParams();
+  const router = useRouter();
+
+  useEffect(() => {
+    const status = searchParams.get("status");
+    if (status === "1") {
+      alert("Login Expired. Please login again.");
+    } else if (status === "2") {
+      alert("Not authenticated.");
+    }
+  }, [searchParams]);
+
   async function onSubmit(data) {
     const { rememberMe, ...restData } = data;
 
@@ -33,13 +45,16 @@ export default function LoginPage() {
     }
 
     try {
-      const res = await fetch("/api/login/auth", { method: "POST", body: JSON.stringify(restData) });
-
-      if (res.status === 500) return alert("Server Down. Please try again later. ");
-
+      const res = await fetch("/api/login/auth", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        credentials: "include",
+        body: JSON.stringify(restData),
+      });
       const rJson = await res.json();
       if (!rJson.ok) return alert(rJson.message);
-      return alert(rJson.message);
+
+      router.push("/");
     } catch (error) {
       console.error(error);
       return alert(error);

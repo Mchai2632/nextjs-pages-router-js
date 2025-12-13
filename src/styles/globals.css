@@ -16,6 +16,13 @@
   --shadow-m: inset 0 1px 2px #ffffff50 /* top highlights */, 0 2px 4px #00000030 /* dark highlights */, 0 4px 8px #00000015 /* soft highlights */;
   --shadow-l: inset 0 1px 2px #ffffff70 /* top highlights */, 0 4px 6px #00000030 /* dark highlights */, 0 6px 10px #00000015 /* soft highlights */;
 
+  --fs-h1: clamp(1.5rem, 2.25vw + 0.97rem, 3rem);
+  --fs-h2: clamp(1.25rem, 1.5vw + 0.9rem, 2.25rem);
+  --fs-h3: clamp(1.125rem, 1.13vw + 0.86rem, 1.875rem);
+  --fs-h4: clamp(1rem, 0.75vw + 0.82rem, 1.5rem);
+  --fs-h5: clamp(0.875rem, 0.563vw + 0.8rem, 1.25rem);
+  --fs-h6: clamp(0.75rem, 0.376vw + 0.66rem, 1rem);
+
   --hero-h1-highlight: #7b7b7b;
 }
 
@@ -98,7 +105,43 @@ h6 {
   }
 }
 
+section {
+  padding: 3rem 0;
+}
+
 .scrollbar-hidden {
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */
+}
+
+.blur-mask {
+  backdrop-filter: blur(2px);
+  mask-image: linear-gradient(to bottom, black 0%, transparent 30%, transparent 70%, black 100%);
+  -webkit-mask-image: linear-gradient(to bottom, black 0%, transparent 40%, transparent 60%, black 100%);
+}
+
+.gray-mask {
+  backdrop-filter: grayscale(100%);
+  mask-image: linear-gradient(to bottom, black 0%, black 30%, transparent 30%, transparent 70%, black 70%, black 100%);
+  -webkit-mask-image: linear-gradient(to bottom, black 0%, black 30%, transparent 30%, transparent 70%, black 70%, black 100%);
+}
+
+.gallery1-wrapper {
+  max-width: 1196px;
+  width: 100%;
+  margin-inline: auto;
+  display: grid;
+  gap: 10px;
+  padding: 0 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(288px, 1fr));
+}
+
+@media screen and (min-width: 769px) {
+  .gallery1-wrapper {
+    padding: 0;
+  }
+  .gallery1-wrapper .item1 {
+    grid-column: span 2; /* 占两列 */
+    grid-row: span 2; /* 占两行 */
+  }
 }
