@@ -18,7 +18,7 @@ export default function Gallery() {
   const [isHover, setIsHover] = useState(null);
 
   return (
-    <section className="relative w-full flex flex-col bg-bg text-text">
+    <section className="relative w-full flex flex-col bg-bg text-text  py-[3rem]">
       <div className="flex gap-1 md:gap-2 flex-col justify-center items-center">
         <h1>GALLERY</h1>
         <hr className="w-[10%]" />
@@ -29,7 +29,7 @@ export default function Gallery() {
           return (
             <div
               key={i}
-              className={cn("relative aspect-16/9 overflow-hidden ", i === 0 ? "item1" : "")}
+              className={cn("relative aspect-3/2 overflow-hidden ", i === 0 ? "item1" : "")}
               onMouseEnter={() => setIsHover(i)}
               onMouseLeave={() => setIsHover(null)}
             >

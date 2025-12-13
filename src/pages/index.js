@@ -1,7 +1,3 @@
-// import Layout from "@/components/Layout";
-import PackageList from "@/components/PackageList";
-import { TourPkgListProvider } from "@/context/TourPkgListContext";
-
 // hooks
 import { useAutoRefresh } from "@/hooks/useAutoRefresh";
 
@@ -12,20 +8,15 @@ import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 // animation
 import { motion } from "motion/react";
 import RootWrapper from "@/layout/page/root";
-import { forwardRef, useEffect, useRef } from "react";
-import Orbit from "@/components/ui/Orbit";
+import { forwardRef } from "react";
+
 import Gallery from "@/components/Home/Gallery";
+import Testimonials from "@/components/Home/Testimonials";
+import Newsletter from "@/components/Home/Newsletter";
 
 export default function HomePage() {
   // Auto refresh page every 5 seconds in development mode
   // useAutoRefresh(5000);
-
-  // const radius = 200 / 2;
-
-  const radius = 150;
-  const cx = 200;
-  const cy = 200;
-  const n = 10;
 
   return (
     <>
@@ -36,20 +27,9 @@ export default function HomePage() {
         {/* <VisionScroll3D /> */}
 
         <Gallery />
+        <Testimonials />
+        <Newsletter />
 
-        <section className="relative w-full flex bg-bg text-text">
-          <div className="w-1/2 flex gap-2 flex-col justify-center items-center">
-            <h1>TESTIMONIALS</h1>
-            <hr className="w-[10%]" />
-            <p>Let’s see what our customers say !</p>
-          </div>
-          <div className="relative w-1/2 overflow-hidden">
-            <div className="absolute w-full h-full bg-linear-to-r from-transparent to-orange-400/50"></div>
-            {/* <div className="z-20 absolute w-full h-[30%] bg-black/20 "></div> */}
-            <Orbit direction={0} />
-            <div className="absolute h-full w-full top-0 blur-mask  pointer-events-none" />
-          </div>
-        </section>
         {/* 
         <div className="flex flex-col gap-4 items-center justify-center h-full">
           <div className="bg-red-500 w-50 h-50"></div>
