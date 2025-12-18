@@ -11,7 +11,7 @@ console.log(process.env.MARIADB_HOST, process.env.MARIADB_USERNAME, process.env.
 const pool = mysql.createPool({
   host: process.env.MARIADB_HOST,
   user: process.env.MARIADB_USERNAME,
-  password: process.env.PASSWORD,
+  password: process.env.MARIADB_PASSWORD,
   database: process.env.MARIADB_DATABASE,
 });
 
