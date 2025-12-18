@@ -13,6 +13,15 @@ import { forwardRef } from "react";
 import Gallery from "@/components/Home/Gallery";
 import Testimonials from "@/components/Home/Testimonials";
 import Newsletter from "@/components/Home/Newsletter";
+import OurBlog from "@/components/Home/Ourblog";
+import BannerCarousel from "@/components/ui/BannerCarousel";
+
+const banners = [
+  "https://picsum.photos/id/23/1920/1080",
+  "https://picsum.photos/id/41/1920/1080",
+  "https://picsum.photos/id/512/1920/1080",
+  "https://picsum.photos/id/233/1920/1080",
+];
 
 export default function HomePage() {
   // Auto refresh page every 5 seconds in development mode
@@ -26,8 +35,10 @@ export default function HomePage() {
         {/* <HeroSection /> */}
         {/* <VisionScroll3D /> */}
 
+        <BannerCarousel images={banners} autoSlide interval={3000} />
         <Gallery />
         <Testimonials />
+        <OurBlog />
         <Newsletter />
 
         {/* 

@@ -1,14 +1,14 @@
-// ===== variables.scss =====
-$breakpoints: (
-  mobile: 480px,
-  tablet: 768px,
-  desktop: 1024px,
-);
+// // ===== variables.scss =====
+// $breakpoints: (
+//   mobile: 480px,
+//   tablet: 768px,
+//   desktop: 1024px,
+// );
 
-@mixin respond($device) {
-  @if map-has-key($breakpoints, $device) {
-    @media (max-width: map-get($breakpoints, $device)) {
-      @content;
-    }
-  }
-}
+// @mixin respond($device) {
+//   @if map-has-key($breakpoints, $device) {
+//     @media (max-width: map-get($breakpoints, $device)) {
+//       @content;
+//     }
+//   }
+// }

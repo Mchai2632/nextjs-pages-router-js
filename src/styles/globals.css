@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Radio+Canada+Big:ital,wght@0,400..700;1,400..700&family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Geist+Mono:wght@100..900&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Radio+Canada+Big:ital,wght@0,400..700;1,400..700&family=Source+Serif+4:ital,opsz@0,8..60;1,8..60&display=swap');
 @import "tailwindcss";
 
 
@@ -6,7 +6,7 @@
 
 :root {
   --font-size: 16px;
-  --primary: oklch(0.65 0.15 264);
+  --primary: oklch(54.545% 0.18988 26.759);
   --bg-dark: oklch(0.92 0 0);
   --bg: oklch(0.96 0 0);
   --bg-light: oklch(1 0 0);
@@ -18,6 +18,10 @@
   --shadow-m: inset 0 1px 2px #ffffff50 /* top highlights */, 0 2px 4px #00000030 /* dark highlights */, 0 4px 8px #00000015 /* soft highlights */;
   --shadow-l: inset 0 1px 2px #ffffff70 /* top highlights */, 0 4px 6px #00000030 /* dark highlights */, 0 6px 10px #00000015 /* soft highlights */;
 
+  --inset-s: inset 0 2px 6px rgba(0,0,0,0.15);
+  --inset-m: inset 0 2px 6px rgba(0,0,0,0.45);
+  --inset-l: inset 0 2px 6px rgba(0,0,0,0.85);
+
   --fs-h1: clamp(1.5rem, 2.25vw + 0.97rem, 3rem);
   --fs-h2: clamp(1.25rem, 1.5vw + 0.9rem, 2.25rem);
   --fs-h3: clamp(1.125rem, 1.13vw + 0.86rem, 1.875rem);
@@ -28,6 +32,7 @@
   --hero-h1-highlight: #7b7b7b;
   --font-radio-canada: "Radio Canada Big", sans-serif;
   --font-source-serif: "Source Serif 4", serif;
+  --font-geist-mono:"Geist Mono", monospace;
 }
 
 body.dark {
@@ -51,6 +56,8 @@ body.dark {
   --shadow-s: var(--shadow-s);
   --shadow-m: var(--shadow-m);
   --shadow-l: var(--shadow-l);
+
+  
 
   --shadow-color: rgba(0, 0, 0, 0.1);
 
@@ -102,12 +109,7 @@ h6 {
   font-weight: 500;
 }
 
-.radio-canada-big {
-  font-family: "Radio Canada Big", sans-serif;
-  font-optical-sizing: auto;
-  font-weight: 500;
-  font-style: normal;
-}
+
 
 @keyframes shimmer {
   0% {

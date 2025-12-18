@@ -38,7 +38,7 @@ export default function Layout({
   };
 
   return (
-    <div className={cn("min-h-screen flex flex-col max-w-[1920px] mx-auto", className)}>
+    <div className={cn("relative min-h-screen flex flex-col max-w-[1920px] mx-auto", className)}>
       <Navbar
         showBrand={true}
         logo={{ src: logo, alt: layoutConfig.myBrand.name }}

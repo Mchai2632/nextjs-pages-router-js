@@ -20,6 +20,13 @@ const nextConfig = {
         pathname: "/nuhtravel-admin/**",
         search: "",
       },
+      {
+        protocol: "https",
+        hostname: "picsum.photos",
+        port: "",
+        pathname: "/**",
+        search: "",
+      },
     ],
   },
 };

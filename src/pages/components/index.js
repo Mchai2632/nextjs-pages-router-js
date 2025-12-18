@@ -1,5 +1,4 @@
 import BaseMeta from "@/components/SEO/BaseMeta";
-import PageSEO from "@/components/SEO/PageSEO";
 import ComponentsWrapper from "@/layout/page/components";
 import Head from "next/head";
 import React from "react";

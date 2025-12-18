@@ -1,12 +1,11 @@
-import { useEffect, useState } from "react";
-import { motion, AnimatePresence } from "motion/react";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import Image from "next/image";
+import React, { useEffect, useRef, useState } from "react";
+import { cn } from "@/utils/cn";
+import { ArrowLeft, ArrowRight } from "lucide-react";
 
-export default function BannerCarousel({ images = [], autoSlide = false, interval = 3000 }) {
+export default function BannerCarousel2({ images, autoSlide = false, interval = 3000 }) {
   const [index, setIndex] = useState(0);
-
-  const next = () => setIndex((i) => (i + 1) % images.length);
-  const prev = () => setIndex((i) => (i - 1 + images.length) % images.length);
+  const containerCarousel = useRef();
 
   useEffect(() => {
     if (!autoSlide || images.length <= 1) return;
@@ -14,47 +13,83 @@ export default function BannerCarousel({ images = [], autoSlide = false, interva
     return () => clearInterval(timer);
   }, [autoSlide, interval, index]);
 
+  const next = () => {
+    if (index >= images.length - 1) {
+      setIndex(0);
+    } else {
+      setIndex((prev) => prev + 1);
+    }
+  };
+
+  const prev = () => {
+    if (index <= 0) {
+      setIndex(images.length - 1);
+    } else {
+      setIndex((prev) => prev - 1);
+    }
+  };
+
   return (
-    <div className="relative w-full aspect-75/32 max-w-[1920px] mx-auto overflow-hidden mt-[78px] xl:mt-[92px]">
-      <AnimatePresence initial={false}>
-        <motion.img
-          key={images[index]}
-          src={images[index]}
-          alt=""
-          className="absolute top-0 left-0 w-full h-full object-cover"
-          initial={{ x: 100, opacity: 0 }}
-          animate={{ x: 0, opacity: 1 }}
-          exit={{ x: -100, opacity: 0 }}
-          transition={{ duration: 0.4 }}
-        />
-      </AnimatePresence>
+    <div className="overflow-hidden relative text-text">
+      <div
+        ref={containerCarousel}
+        className="relative w-full flex transition-transform duration-500 ease-in-out"
+        style={{ transform: `translateX(-${index * containerCarousel.current?.offsetWidth}px)` }}
+      >
+        {images.map((image, i) => {
+          return (
+            <div className="relative w-full flex-shrink-0 aspect-75/32">
+              <Image alt={`image_${i}`} key={i} src={image} width={1920} height={1080} className="object-cover w-full h-full" priority={i === 0} />
 
-      {/* 控制按鈕 */}
-      <button
+              {/* overlay */}
+              <div className="absolute inset-0 bg-linear-to-r from-black/40 to-20%"></div>
+              <div className="absolute inset-0 bg-linear-to-l from-black/40 to-20%"></div>
+            </div>
+          );
+        })}
+      </div>
+
+      <DirectionButton
+        Icon={ArrowLeft}
         onClick={prev}
-        className="absolute left-3 top-1/2 -translate-y-1/2 bg-black/20 text-white rounded-full p-2 hover:scale-[1.2] transition-transform"
-      >
-        <ChevronLeft />
-      </button>
-      <button
+        className="absolute"
+        style={{
+          top: "calc(50% - 16px)",
+          left: 12,
+        }}
+      ></DirectionButton>
+      <DirectionButton
+        Icon={ArrowRight}
+        className="absolute"
+        style={{
+          top: "calc(50% - 32px)",
+          right: 12,
+        }}
         onClick={next}
-        className="absolute right-3 top-1/2 -translate-y-1/2 bg-black/20 text-white rounded-full p-2 hover:scale-[1.2] transition-transform"
-      >
-        <ChevronRight />
-      </button>
+      ></DirectionButton>
 
-      {/* Indicator */}
-      <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-2">
-        {images.map((_, i) => (
+      {/* dots */}
+      <div className="flex justify-center gap-1 mt-4">
+        {Array.from({ length: images.length }, (_, i) => (
           <div
-            key={i}
+            className={cn("w-4 h-4 rounded-full transition-transform", i === index ? "bg-primary" : "bg-gray-500", i < index || i > index ? "scale-75" : "")}
             onClick={() => setIndex(i)}
-            className={`w-2 h-2 rounded-full cursor-pointer ${
-              i === index ? "bg-white" : "bg-gray-400"
-            }`}
-          />
+          ></div>
         ))}
       </div>
     </div>
   );
 }
+
+const DirectionButton = ({ onClick, Icon, className = "", style, ...props }) => {
+  return (
+    <button
+      className={cn("bg-primary/70 shadow-s hover:scale-125 transition-transform duration-300 rounded-full p-2 cursor-pointer", className)}
+      style={style}
+      onClick={onClick}
+      {...props}
+    >
+      <Icon className="text-current" />
+    </button>
+  );
+};
