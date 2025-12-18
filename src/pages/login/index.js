@@ -40,12 +40,14 @@ export default function LoginPage() {
   async function onSubmit(data) {
     const { rememberMe, ...restData } = data;
 
+    
+
     if (rememberMe) {
       console.log("I will save data in localStorage / autocomplete");
     }
 
     try {
-      const res = await fetch("/api/login/auth", {
+      const res = await fetch("/api/auth/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         credentials: "include",
