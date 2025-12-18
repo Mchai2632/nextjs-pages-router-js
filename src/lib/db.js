@@ -13,6 +13,7 @@ const pool = mysql.createPool({
   user: process.env.MARIADB_USERNAME,
   password: process.env.MARIADB_PASSWORD,
   database: process.env.MARIADB_DATABASE,
+  port: process.env.MARIADB_PORT,
 });
 
 export default pool;
