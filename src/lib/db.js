@@ -1,6 +1,6 @@
 import mysql from "mysql2/promise";
 
-console.log(process.env.MARIADB_HOST, process.env.MARIADB_USERNAME, process.env.PASSWORD, process.env.MARIADB_DATABASE);
+console.log(process.env.MARIADB_HOST, process.env.MARIADB_USERNAME, process.env.PASSWORD, process.env.MARIADB_DATABASE, process.env.MARIADB_PORT);
 
 // const pool = mysql.createPool({
 //   host: process.env.DB_HOST,
