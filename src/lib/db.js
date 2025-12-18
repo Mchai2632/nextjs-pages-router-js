@@ -1,6 +1,6 @@
 import mysql from "mysql2/promise";
 
-console.log(process.env.DB_HOST, process.env.DB_USER, process.env.DB_PASSWORD, process.env.DB_NAME);
+console.log(process.env.MARIADB_HOST, process.env.MARIADB_USERNAME, process.env.PASSWORD, process.env.MARIADB_DATABASE);
 
 // const pool = mysql.createPool({
 //   host: process.env.DB_HOST,
@@ -11,7 +11,7 @@ console.log(process.env.DB_HOST, process.env.DB_USER, process.env.DB_PASSWORD, p
 const pool = mysql.createPool({
   host: process.env.MARIADB_HOST,
   user: process.env.MARIADB_USERNAME,
-  password: process.env.MARIADB_PASSWORD,
+  password: process.env.PASSWORD,
   database: process.env.MARIADB_DATABASE,
 });
 
